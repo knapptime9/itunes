@@ -3,27 +3,17 @@ var button = document.querySelector("button");
 var results = document.getElementById("results");
 var retData = {};
 
-console.log(input);
-console.log(button);
-console.log(results);
-console.log(player);
-console.log(retData);
 
 button.addEventListener("click", function search() {
 
   results.innerHTML = "";
 
-  console.log(input.value);
   var searchTerm = input.value;
 
   fetch(`https://itunes.apple.com/search?term=${searchTerm}&media=music`).then(function(response) {
-    console.log(response);
     response.json().then(function(data) {
-        console.log(data);
         retData = data.results;
-        console.log(retData);
         return retData;
-        console.log(retData[0].trackName);
       })
 
       .then(function() {
@@ -44,9 +34,7 @@ button.addEventListener("click", function search() {
       .then(function() {
         var tracks = document.querySelectorAll(".track");
         tracks.forEach(function(track,i) {
-          console.log(track);
           track.addEventListener("click", function() {
-            console.log(track);
             player.innerHTML = `
                                    <p>Now playing:  ${retData[i].trackName} - ${retData[i].artistName}</p>
                                    <audio src="${retData[i].previewUrl}" controls="controls" class="music-player"></audio>`;
